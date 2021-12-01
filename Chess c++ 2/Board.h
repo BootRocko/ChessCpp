@@ -31,16 +31,12 @@ using namespace std;
 
 char Coor[9][9];
 
-char BoardLetter = 'A';
-int BoardNumber = 8;
-
 void DrawBoard()
 {
-	cout << "\n\n";
+	char BoardLetter = 'A';
+	int BoardNumber = 8;
 
-	cout << "     ";
-
-	cout << "\n";
+	setxy(0, 3);
 
 	for (int i = 0; i < 24; i++)
 	{
@@ -134,4 +130,13 @@ void DrawPieces()
 		}
 	}
 
+}
+
+void CleanSide()
+{
+	for (int i = 20; i < 25; i++)
+	{
+		setxy(32, i);
+		cout << "                                              ";
+	}
 }

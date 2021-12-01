@@ -1,31 +1,30 @@
 #include <iostream>
 #include "Board.h"
+#include "Input.h"
+#include "Movement.h"
 
 using namespace std;
-
-int input1, input2;
 
 int main()
 {
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	
+	DrawBoard();
+	SetupPieces();
 
 	while (true)
 	{
 		DrawBoard();
-		SetupPieces();
 		DrawPieces();
 
-		setxy(32, 20);
+		MoveInput();
+		
+		if (MoveValid(moveInput))
+		{
+			MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+		}
 
-		cout << "Input current position of piece: ";
-		cin >> input1;
-		setxy(30, 21);
-		cout << "Input wanted position of piece: ";
-		cin >> input2;
-
-		system("CLS");
+		CleanSide();
 	}
 
 	system("PAUSE");

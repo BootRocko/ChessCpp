@@ -27,3 +27,18 @@ void WhiteBackground()
 	SetConsoleTextAttribute
 	(hConsole, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
 }
+
+int InvertNumber(int n, int max)
+{
+	if (n <= (max / 2))
+	{
+		n += (max - ((2 * n) - 1));
+	}
+
+	else if (n > (max / 2))
+	{
+		n -= ((2 * n - 1) - max);
+	}
+
+	return n;
+}
