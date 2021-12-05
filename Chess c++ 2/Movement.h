@@ -32,10 +32,75 @@ bool CharIsUppercase(char(&Coor)[9][9], int& intWantedPos1, int& intWantedPos2)
 	else return false;
 }
 
+bool UppercaseDiff(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
+{
+	if ((CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2)) != (CharIsUppercase(Coor, intWantedPos1, intWantedPos2))) return true;
+	else return false;
+}
+
 bool IsEmpty(char(&Coor)[9][9], int& intWantedPos1, int& intWantedPos2)
 {
 	if ((int)Coor[intWantedPos1][intWantedPos2] == '\0') return true;
 	else return false;
+}
+
+bool PathIsFree(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
+{
+	
+	return true;
+}
+
+bool IsDiagonal(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
+{
+	if (abs(intCurrentPos1 - intWantedPos1) == abs(intCurrentPos2 - intWantedPos2)) return true;
+
+	else return false;
+}
+
+int Quadrant(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
+{
+	if		((intCurrentPos1 - intWantedPos1) > 0 && (intCurrentPos2 - intWantedPos2) < 0) return 1;	// x-, y+
+	else if ((intCurrentPos1 - intWantedPos1) < 0 && (intCurrentPos2 - intWantedPos2) < 0) return 2;	// x+, y+
+	else if ((intCurrentPos1 - intWantedPos1) > 0 && (intCurrentPos2 - intWantedPos2) > 0) return 3;	// x-, y-
+	else if ((intCurrentPos1 - intWantedPos1) < 0 && (intCurrentPos2 - intWantedPos2) > 0) return 4;	// x+, y-
+}
+
+bool IsDiagonalClear(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
+{
+
+	int k = intCurrentPos2;
+
+	int m = 0;
+
+	for (int i = 0; abs(i) < (abs(intCurrentPos1 - intWantedPos1) - 1); i)
+	{
+		
+		switch (Quadrant(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2))
+		{
+			case 1: 
+			{
+				i--; k++; break;
+			}
+			case 2:
+			{
+				i++; k++; break;
+			}
+			case 3:
+			{
+				i--; k--; break;	
+			}
+			case 4:
+			{
+				i++; k--; break;	
+			}
+		}
+
+		if (Coor[(i + intCurrentPos1)][k] == '\0') m++;
+		
+	}
+
+	if (m == abs(intCurrentPos1 - intWantedPos1) - 1) return true;
+	return false;
 }
 
 
@@ -46,25 +111,19 @@ bool MoveValid(string MoveInput)
 	piece = Coor[intCurrentPos1][intCurrentPos2];
 
 
+	//Checks if the piece being taken is an enemy piece, otherwise it just makes the move invalid
+	if (Coor[intWantedPos1][intWantedPos2] != '\0')
+	{
+		if (!UppercaseDiff(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return false;
+	}
+
+	//Checks piece logic, depending on the piece being moved
 	switch (piece) {
 	
 	//----------------PAWN-----------------
-	case 'p':
-		{
-			//Normal one space movement
-			if (abs(intCurrentPos2 - intWantedPos2) == 1
-				&& SameRow(intCurrentPos1, intWantedPos1)
-				&& IsEmpty(Coor, intWantedPos1, intWantedPos2)) return true;
-
-
-			//Taking piece
-			else if (CharIsUppercase(Coor, intWantedPos1, intWantedPos2)
-				&& (abs(intCurrentPos2 - intWantedPos2)) == 1
-				&& (abs(intCurrentPos1 - intWantedPos1)) == 1
-				&& !IsEmpty(Coor, intWantedPos1, intWantedPos2)) return true;
-		}
-
 	case 'P':
+	case 'p':
+	
 		{
 			//Normal one space movement
 			if (abs(intCurrentPos2 - intWantedPos2) == 1
@@ -73,13 +132,33 @@ bool MoveValid(string MoveInput)
 
 
 			//Taking piece
-			else if (!CharIsUppercase(Coor, intWantedPos1, intWantedPos2)
-				&& (abs(intCurrentPos2 - intWantedPos2)) == 1
+			else if (//UppercaseDiff(Coor,intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)
+				   (abs(intCurrentPos2 - intWantedPos2)) == 1
 				&& (abs(intCurrentPos1 - intWantedPos1)) == 1
 				&& !IsEmpty(Coor, intWantedPos1, intWantedPos2)) return true;
+
+			break;
 		}
 
+	case 'R':
+	case 'r':
+		{
+			//Normal movement
+			if (((SameRow(intCurrentPos1, intWantedPos1) && !SameColumn(intCurrentPos2, intWantedPos2))
+			|| (!SameRow(intCurrentPos1, intWantedPos1) && SameColumn(intCurrentPos2, intWantedPos2)))
+			&& IsEmpty(Coor, intWantedPos1, intWantedPos2) ) return true;
 
+			//Taking piece
+
+
+			break;
+		}
+
+	case 'B':
+	case 'b':
+	{
+		
+	}
 
 	}
 
