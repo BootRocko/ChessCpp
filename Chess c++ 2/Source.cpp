@@ -23,6 +23,7 @@ int main()
 		{
 			MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
 		}
+		else CoutInvalidMove();
 
 		CleanSide();
 	}

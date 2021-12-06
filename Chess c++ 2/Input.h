@@ -15,6 +15,16 @@ void MoveInput()
 	cin >> moveInput;
 }
 
+void CoutInvalidMove()
+{
+	setxy(32, 19);
+	cout << "Please input a valid move!";
+}
+
+void ErrorDetection()
+{
+	string x = "";
+}
 
 void GetWantedMove()
 {
@@ -45,8 +55,7 @@ void GetWantedMove()
 
 	else
 	{
-		setxy(32, 19);
-		cout << "Please input a valid move!";
+		CoutInvalidMove();
 	}
 
 }

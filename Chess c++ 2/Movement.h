@@ -46,8 +46,40 @@ bool IsEmpty(char(&Coor)[9][9], int& intWantedPos1, int& intWantedPos2)
 
 bool PathIsFree(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
 {
-	
-	return true;
+	int k = 0;
+	int i = 0;
+
+	int m = 0;
+
+	if (intCurrentPos2 == intWantedPos2)
+	{
+
+		for (i; abs(i) < (abs(intCurrentPos1 - intWantedPos1) - 1); i)
+		{
+
+			if (intWantedPos1 - intCurrentPos1 > 0) i++;
+			else i--;
+
+			if (Coor[(i + intCurrentPos1)][intCurrentPos2] == '\0') m++;
+		}
+
+		if (m == abs(intCurrentPos1 - intWantedPos1) - 1) return true;
+	}
+
+	if (intCurrentPos1 == intWantedPos1)
+	{
+		for (k; abs(k) < (abs(intCurrentPos2 - intWantedPos2) - 1); k)
+		{
+			if (intWantedPos2 - intCurrentPos2 > 0) k++;
+			else k--;
+
+			if (Coor[(intCurrentPos1)][k + intCurrentPos2] == '\0') m++;
+		}
+
+		if (m == abs(intCurrentPos2 - intWantedPos2) - 1) return true;
+	}
+
+	return false;
 }
 
 bool IsDiagonal(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& intWantedPos1, int& intWantedPos2)
@@ -117,6 +149,9 @@ bool MoveValid(string MoveInput)
 		if (!UppercaseDiff(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return false;
 	}
 
+	//Checks if the piece is being moved to the same position it is on, which would make the move invalid
+	if (intCurrentPos1 == intWantedPos1 && intCurrentPos2 == intWantedPos2) return false;
+
 	//Checks piece logic, depending on the piece being moved
 	switch (piece) {
 	
@@ -143,22 +178,24 @@ bool MoveValid(string MoveInput)
 	case 'R':
 	case 'r':
 		{
-			//Normal movement
+			//Movement
 			if (((SameRow(intCurrentPos1, intWantedPos1) && !SameColumn(intCurrentPos2, intWantedPos2))
 			|| (!SameRow(intCurrentPos1, intWantedPos1) && SameColumn(intCurrentPos2, intWantedPos2)))
-			&& IsEmpty(Coor, intWantedPos1, intWantedPos2) ) return true;
-
-			//Taking piece
-
+			&& PathIsFree(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2) ) return true;
 
 			break;
 		}
 
 	case 'B':
 	case 'b':
-	{
-		
-	}
+		{
+			//Movement
+		if (IsDiagonal(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)
+		&& IsDiagonalClear(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
+			
+
+			break;
+		}
 
 	}
 
