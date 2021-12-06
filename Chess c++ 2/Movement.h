@@ -135,6 +135,10 @@ bool IsDiagonalClear(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2
 	return false;
 }
 
+bool InCheck()
+{
+	return false;
+}
 
 bool MoveValid(string MoveInput)
 {
@@ -193,6 +197,44 @@ bool MoveValid(string MoveInput)
 		if (IsDiagonal(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)
 		&& IsDiagonalClear(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
 			
+
+			break;
+		}
+
+
+	case 'Q':
+	case 'q':
+		{
+			//Movement
+		if (IsDiagonal(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)
+		&& IsDiagonalClear(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
+
+		else if ((SameRow(intCurrentPos1, intWantedPos1) && !SameColumn(intCurrentPos2, intWantedPos2))
+			 || (!SameRow(intCurrentPos1, intWantedPos1) && SameColumn(intCurrentPos2, intWantedPos2))
+			 && PathIsFree(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
+
+		break;
+		}
+
+
+	//Have to define "InCheck" function to check if the king is in check (/would be in check) before any piece can move
+	//Should save the position of king on every king move for easier checks
+	case 'K':
+	case 'k':
+		{
+			//Movement
+		if ((abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)
+			&& !InCheck()) return true;
+
+		break;
+		}
+
+	case 'N':
+	case 'n':
+		{
+				//Movement
+			if ((abs(intCurrentPos1 - intWantedPos1) == 2 && abs(intCurrentPos2 - intWantedPos2) == 1)
+			|| (abs(intCurrentPos1 - intWantedPos1) == 1 && abs(intCurrentPos2 - intWantedPos2) == 2)) return true;
 
 			break;
 		}
