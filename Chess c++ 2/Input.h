@@ -15,16 +15,19 @@ void MoveInput()
 	cin >> moveInput;
 }
 
+//Have to add error definitions into the Movement.h piece movements and print them into the game board for easier identification why a move is invalid
+void ErrorDetection()
+{
+	string x = "";
+}
+
 void CoutInvalidMove()
 {
 	setxy(32, 19);
 	cout << "Please input a valid move!";
 }
 
-void ErrorDetection()
-{
-	string x = "";
-}
+
 
 void GetWantedMove()
 {
