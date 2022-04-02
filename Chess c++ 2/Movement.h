@@ -2,12 +2,12 @@
 
 #include "Input.h"
 #include "Board.h"
+#include "Game.h"
 
 char piece;
 int kingUPos1 = 4, kingUPos2 = 8, kingLPos1 = 5, kingLPos2 = 1;
 
 //int KingUPos1 = 4, KingUPos2 = 5, KingLPos1 = 5, KingLPos2 = 8;
-bool uMove;
 
 //Moves the piece from the current position to the wanted position
 void MovePiece(int intCurrentPos1, int intCurrentPos2, int intWantedPos1, int intWantedPos2)
@@ -404,7 +404,7 @@ bool IsKingSafe(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2)
 {
 	int a, b;
 
-	if (uMove)
+	if (TurnColor == white)
 	{
 		a = abs(kingUPos1 - kingLPos1);
 		b = abs(kingUPos2 - kingLPos2);
@@ -440,7 +440,7 @@ bool InCheck(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2)
 {
 	int a, b, c, d;
 
-	if (uMove)
+	if (TurnColor)
 	{
 		a = kingUPos1;
 		b = kingUPos2;

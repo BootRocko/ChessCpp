@@ -21,13 +21,11 @@ void ErrorDetection()
 	string x = "";
 }
 
-void CoutInvalidMove()
+void CoutInvalidMove(string Reason)
 {
 	setxy(32, 19);
-	cout << "Please input a valid move!";
+	cout << "Move invalid: " << Reason;
 }
-
-
 
 void GetWantedMove()
 {
@@ -52,13 +50,13 @@ void GetWantedMove()
 
 
 		setxy(32, 19);
-		cout << "                            ";
+		cout << "                                                           ";
 	}
 
 
 	else
 	{
-		CoutInvalidMove();
+		CoutInvalidMove("User input string is not valid");
 	}
 
 }
