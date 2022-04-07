@@ -31,7 +31,7 @@ using namespace std;
 
 char Coor[9][9];
 
-char CoorFuture[9][9];
+char CoorCopy[9][9];
 
 void DrawBoard()
 {
@@ -143,9 +143,14 @@ void CleanSide()
 	}
 }
 
-/*
-void CopyBoard()
-{
 
+void CopyBoard(char CoorUsed[9][9], char CoorCopy[9][9])
+{
+	for (int a = 0; a < 9; a++)
+	{
+		for (int b = 0; b < 9; b++)
+		{
+			CoorCopy[a][b] = CoorUsed[a][b];
+		}
+	}
 }
-*/

@@ -24,16 +24,64 @@ int main()
 		CoutTurnColor();
 		CoutTurnNumber();
 
-		CoutCheck(InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2));
+		if (InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
+		{
+			CoutCheck(true);
+
+			CopyBoard(Coor, CoorCopy);
+		}
+		else CoutCheck(false);
 
 		MoveInput();
 		GetWantedMove();
 
-		//TurnColor = black;
+		//Check if king will be in check
+
 		
+		if ( IsPlayersPiece() )
+		{
+			if (MoveValid(moveInput))
+			{
+				//MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+				CopyBoard(Coor, CoorCopy);
+
+				CopyKing(kingUPos1, kingUPos2, kingLPos1, kingLPos2, c_kingUPos1, c_kingUPos2, c_kingLPos1, c_kingLPos2);
+
+				if (IsKing(Coor, intCurrentPos1, intCurrentPos2)) KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+
+				MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+
+				if (InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
+				{
+					CopyBoard(CoorCopy, Coor);
+
+					CopyKing(c_kingUPos1, c_kingUPos2, c_kingLPos1, c_kingLPos2, kingUPos1, kingUPos2, kingLPos1, kingLPos2);
+
+					CoutInvalidMove("King would be in check");
+				}
+				else
+				{
+					ChangePlayer();
+					IncreaseTurnTimer();
+				}
+
+			}
+			else CoutInvalidMove("Move is not legal");
+
+		}
+		else CoutInvalidMove("Player cannot move opponent's piece");
+
+		CleanSide();
+		
+		//TurnColor = black;
+
+		/*
 		if  (   (TurnColor == white &&  CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2) )
 			 || (TurnColor == black && !CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2) )
 			)
+		*/
+		 /*
+		if  ( IsPlayersPiece() )
 		{
 			if (!InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
 			{
@@ -67,8 +115,9 @@ int main()
 		else CoutInvalidMove("Player cannot move opponent's piece");
 
 		CleanSide();
+		*/
 	}
-
+	
 
 
 }

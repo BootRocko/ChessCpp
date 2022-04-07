@@ -12,6 +12,8 @@ int kingUPos1 = D, kingUPos2 = x1;
 
 int kingLPos1 = E, kingLPos2 = x8;
 
+int c_kingUPos1, c_kingUPos2, c_kingLPos1, c_kingLPos2;
+
 
 //Moves the piece from the current position to the wanted position
 void MovePiece(int intCurrentPos1, int intCurrentPos2, int intWantedPos1, int intWantedPos2)
@@ -245,7 +247,7 @@ bool IsStraightSafe(int& intCurrentPos1, int& intCurrentPos2)
 //Checks if the diagonal is safe (king check)
 bool IsDiagonalSafe(int& intCurrentPos1, int& intCurrentPos2)
 {
-	int i, k, c, p;
+	int k, p;
 	int ix, kx;
 
 	//Cycles through the chain 4 times, to check all 4 diagonals based on the piece's current position
@@ -424,7 +426,6 @@ void DrawDiagonalSafe(int& intCurrentPos1, int& intCurrentPos2)
 
 }
 */
-
 bool IsKnightSafe(int& intCurrentPos1, int& intCurrentPos2)
 {
 	int a, b;
@@ -533,6 +534,15 @@ void KingMove(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& 
 		kingLPos1 = intWantedPos1;
 		kingLPos2 = intWantedPos2;
 	}
+}
+
+void CopyKing(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2,   int& c_kingUPos1, int& c_kingUPos2, int& c_kingLPos1, int& c_kingLPos2)
+{
+	c_kingUPos1 = kingUPos1;
+	c_kingUPos2 = kingUPos2;
+
+	c_kingLPos1 = kingLPos1;
+	c_kingLPos2 = kingLPos2;
 }
 
 bool InCheck(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2)

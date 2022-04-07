@@ -1,11 +1,16 @@
 #pragma once
 
+#include "Input.h"
+#include "Board.h"
+#include "Movement.h"
+
 #define white true  //Uppercase
 #define black false	//Lowercase
 
 int CurrentTurn;
 bool TurnColor;
 int TurnNumber;
+bool WouldCheck;
 
 void ChangePlayer()
 {
@@ -60,5 +65,16 @@ void CoutCheck(bool CheckCondition)
 bool IsKing(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2)
 {
 	if (Coor[intCurrentPos1][intCurrentPos2] == 'K' || Coor[intCurrentPos1][intCurrentPos2] == 'k') return true;
+	else return false;
+}
+
+bool CharIsUppercase(char(&Coor)[9][9], int& intWantedPos1, int& intWantedPos2);
+
+bool IsPlayersPiece()
+{
+	if  (  (TurnColor == white && CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2))
+		|| (TurnColor == black && !CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2))
+		) return true;
+
 	else return false;
 }
