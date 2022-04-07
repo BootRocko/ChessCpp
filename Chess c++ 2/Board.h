@@ -31,6 +31,8 @@ using namespace std;
 
 char Coor[9][9];
 
+char CoorFuture[9][9];
+
 void DrawBoard()
 {
 	char BoardLetter = 'A';
@@ -140,3 +142,10 @@ void CleanSide()
 		cout << "                                              ";
 	}
 }
+
+/*
+void CopyBoard()
+{
+
+}
+*/

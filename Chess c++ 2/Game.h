@@ -32,7 +32,33 @@ void CoutTurnNumber()
 	cout << "Turns: " << TurnNumber;
 }
 
+void CoutDebug(char cancer)
+{
+	setxy(32, 13);
+	cout << "Cancer:" << cancer;
+}
+
 void IncreaseTurnTimer()
 {
 	TurnNumber++;
+}
+
+void CoutCheck(bool CheckCondition)
+{
+	if (CheckCondition)
+	{
+		setxy(32, 28);
+		cout << "In check!";
+	}
+	else
+	{
+		setxy(32, 28);
+		cout << "          ";
+	}
+}
+
+bool IsKing(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2)
+{
+	if (Coor[intCurrentPos1][intCurrentPos2] == 'K' || Coor[intCurrentPos1][intCurrentPos2] == 'k') return true;
+	else return false;
 }

@@ -5,9 +5,13 @@
 #include "Game.h"
 
 char piece;
-int kingUPos1 = 4, kingUPos2 = 8, kingLPos1 = 5, kingLPos2 = 1;
 
-//int KingUPos1 = 4, KingUPos2 = 5, KingLPos1 = 5, KingLPos2 = 8;
+char checkPiece;
+
+int kingUPos1 = D, kingUPos2 = x1;
+
+int kingLPos1 = E, kingLPos2 = x8;
+
 
 //Moves the piece from the current position to the wanted position
 void MovePiece(int intCurrentPos1, int intCurrentPos2, int intWantedPos1, int intWantedPos2)
@@ -215,7 +219,11 @@ bool IsStraightSafe(int& intCurrentPos1, int& intCurrentPos2)
 			case 'Q':
 			case 'q':
 			{
-				if (UppercaseDiff(Coor, intCurrentPos1, intCurrentPos2, a, b)) return false;
+				if (UppercaseDiff(Coor, intCurrentPos1, intCurrentPos2, a, b))
+				{
+					checkPiece = Coor[a][b]; //------------------
+					return false;
+				}
 			}
 
 			default:
@@ -325,6 +333,97 @@ bool IsDiagonalSafe(int& intCurrentPos1, int& intCurrentPos2)
 	return true;
 
 }
+ 
+/*
+void DrawDiagonalSafe(int& intCurrentPos1, int& intCurrentPos2)
+{
+	int i, k, c, p;
+	int ix, kx;
+
+	//Cycles through the chain 4 times, to check all 4 diagonals based on the piece's current position
+	for (int c = 1; c <= 4; c++)
+	{
+		switch (c)
+		{
+		case 1:
+		{
+			ix = -1;
+			kx = 1;
+
+			break;
+		}
+		case 2:
+		{
+			ix = 1;
+			kx = 1;
+
+			break;
+		}
+		case 3:
+		{
+			ix = -1;
+			kx = -1;
+
+			break;
+		}
+		case 4:
+		{
+			ix = 1;
+			kx = -1;
+
+			break;
+		}
+		}
+
+		p = 0;
+
+		//Goes through every square and checks if there is a piece there that would threaten the diagonal (Queen and Bishop)
+		for (int i = 1; i < 8; i++)
+		{
+
+			k = i;
+
+			k *= kx;
+			i *= ix;
+
+			int a = intCurrentPos1 + i;
+			int b = intCurrentPos2 + k;
+
+			if (a == 9 || b == 9 || a == 0 || b == 0) break;
+
+			switch (Coor[a][b])
+			{
+			case '\0':
+			{
+				Coor[a][b] = 'O';
+			}
+
+			case 'B':
+			case 'b':
+			case 'Q':
+			case 'q':
+			{
+				if (UppercaseDiff(Coor, intCurrentPos1, intCurrentPos2, a, b)) break;
+			}
+
+			default:
+			{
+				p++;
+				break;
+			}
+
+			}
+
+			if (p) break;
+
+			i = abs(i);
+
+		}
+
+	}
+
+}
+*/
 
 bool IsKnightSafe(int& intCurrentPos1, int& intCurrentPos2)
 {
@@ -438,6 +537,8 @@ void KingMove(char(&Coor)[9][9], int& intCurrentPos1, int& intCurrentPos2, int& 
 
 bool InCheck(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2)
 {
+	string penis;
+
 	int a, b, c, d;
 
 	if (TurnColor)
@@ -457,10 +558,19 @@ bool InCheck(int& kingUPos1, int& kingUPos2, int& kingLPos1, int& kingLPos2)
 
 	}
 
+	if (!IsDiagonalSafe(a, b)) penis += "D";
+
+	if (!IsStraightSafe(a, b)) penis += "S";
+
+	if (!IsKnightSafe(a, b))   penis += "N";
+
+	setxy(32, 15);
+	cout << penis;
+
 	if (!IsDiagonalSafe(a, b)
 		|| !IsStraightSafe(a, b)
-		|| !IsKnightSafe(a, b)
-		|| !IsKingSafe(a, b, c, d))  return true;
+		|| !IsKnightSafe(a, b)) return true;
+		//|| !IsKingSafe(a, b, c, d))  return true;
 		
 
 	return false;
@@ -563,10 +673,11 @@ bool MoveValid(string MoveInput)
 	case 'k':
 	{
 		//Movement
-		if ((abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)
-			&& !InCheck(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2))
+		if  ( (abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)
+			&& !InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2)
+			)
 		{
-			KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+			//KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
 			return true;
 		}
 
