@@ -24,43 +24,43 @@ int main()
 		CoutTurnColor();
 		CoutTurnNumber();
 
-		if (InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
-		{
-			CoutCheck(true);
-
-			CopyBoard(Coor, CoorCopy);
-		}
-		else CoutCheck(false);
+		CoutCheck(InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2));
 
 		MoveInput();
 		GetWantedMove();
 
-		//Check if king will be in check
-
-		
+		//Check if the piece can be moved by the player
 		if ( IsPlayersPiece() )
 		{
+			//Check if the move is even valid
 			if (MoveValid(moveInput))
 			{
-				//MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
+				//Copies the board incase it needs to be reverted
 				CopyBoard(Coor, CoorCopy);
 
+				//Copies the king's positions incase they need to be reverted
 				CopyKing(kingUPos1, kingUPos2, kingLPos1, kingLPos2, c_kingUPos1, c_kingUPos2, c_kingLPos1, c_kingLPos2);
 
+				//If the moved piece is the king, it moves it's saved coordinates
 				if (IsKing(Coor, intCurrentPos1, intCurrentPos2)) KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
 
+				//Moves the piece
 				MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
 
+				//Checks if the king would be in check
 				if (InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
 				{
+					//Copies the old board back to revert the move
 					CopyBoard(CoorCopy, Coor);
 
+					//Copies the old king's positions back to revert the move
 					CopyKing(c_kingUPos1, c_kingUPos2, c_kingLPos1, c_kingLPos2, kingUPos1, kingUPos2, kingLPos1, kingLPos2);
 
 					CoutInvalidMove("King would be in check");
 				}
 				else
 				{
+					//Leaves the current board in play and advances the turn
 					ChangePlayer();
 					IncreaseTurnTimer();
 				}
@@ -73,51 +73,6 @@ int main()
 
 		CleanSide();
 		
-		//TurnColor = black;
-
-		/*
-		if  (   (TurnColor == white &&  CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2) )
-			 || (TurnColor == black && !CharIsUppercase(Coor, intCurrentPos1, intCurrentPos2) )
-			)
-		*/
-		 /*
-		if  ( IsPlayersPiece() )
-		{
-			if (!InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2))
-			{
-				if (MoveValid(moveInput))
-				{
-					//MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
-
-					if (IsKing(Coor, intCurrentPos1, intCurrentPos2)) KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
-
-					MovePiece(intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
-
-					ChangePlayer();
-					IncreaseTurnTimer();
-					
-				}
-				else CoutInvalidMove("Move is not legal");
-			}
-
-			else
-			{
-				// if (IsKing(Coor, intCurrentPos1, intCurrentPos2)) Coor copy check if it can move and no longer be in check
-
-				CoutInvalidMove("King is in check");
-
-				CoutDebug(checkPiece);
-
-				Coor[kingUPos1][kingUPos2] = 'O';
-				Coor[kingLPos1][kingLPos2] = 'o';
-			}
-		}
-		else CoutInvalidMove("Player cannot move opponent's piece");
-
-		CleanSide();
-		*/
 	}
-	
-
 
 }

@@ -8,6 +8,7 @@ string moveInput;
 int intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2;
 char charPos[5];
 
+//Takes user input and saves it into moveInput
 void MoveInput()
 {
 	setxy(32, 20);
@@ -21,12 +22,14 @@ void ErrorDetection()
 	string x = "";
 }
 
+//Prints why a move is invalid with reason given as a parameter
 void CoutInvalidMove(string Reason)
 {
 	setxy(32, 19);
 	cout << "Move invalid: " << Reason;
 }
 
+//Divides the moveInput string into four useful variables for the current and wanted positions
 void GetWantedMove()
 {
 

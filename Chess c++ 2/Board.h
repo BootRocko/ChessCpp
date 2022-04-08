@@ -11,6 +11,7 @@
 
 using namespace std;
 
+//Defining board spaces for better readability
 #define A 1
 #define B 2
 #define C 3
@@ -29,10 +30,13 @@ using namespace std;
 #define x2 7
 #define x1 8
 
+//Main board char array
 char Coor[9][9];
 
 char CoorCopy[9][9];
 
+
+//Draws board into the command line
 void DrawBoard()
 {
 	char BoardLetter = 'A';
@@ -89,6 +93,7 @@ void DrawBoard()
 
 }
 
+//Places the pieces to their proper place on the board
 void SetupPieces()
 {
 	Coor[A][x8] = 'r';
@@ -116,6 +121,7 @@ void SetupPieces()
 
 }
 
+//Draws the pieces onto the board
 void DrawPieces()
 {
 	
@@ -134,6 +140,7 @@ void DrawPieces()
 
 }
 
+//Cleans the side of the board
 void CleanSide()
 {
 	for (int i = 20; i < 25; i++)
@@ -143,7 +150,7 @@ void CleanSide()
 	}
 }
 
-
+//Copies the board into a board copy for use in checking for future king checks
 void CopyBoard(char CoorUsed[9][9], char CoorCopy[9][9])
 {
 	for (int a = 0; a < 9; a++)
