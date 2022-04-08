@@ -667,9 +667,10 @@ bool MoveValid(string MoveInput)
 		if (IsDiagonal(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)
 			&& IsDiagonalClear(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
 
-		else if ((SameRow(intCurrentPos1, intWantedPos1) && !SameColumn(intCurrentPos2, intWantedPos2))
-			|| (!SameRow(intCurrentPos1, intWantedPos1) && SameColumn(intCurrentPos2, intWantedPos2))
-			&& PathIsFree(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
+		else if ( (    (SameRow(intCurrentPos1, intWantedPos1) && !SameColumn(intCurrentPos2, intWantedPos2))
+					|| (!SameRow(intCurrentPos1, intWantedPos1) && SameColumn(intCurrentPos2, intWantedPos2))
+				  )
+				&& PathIsFree(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2)) return true;
 
 		break;
 	}
@@ -683,14 +684,8 @@ bool MoveValid(string MoveInput)
 	case 'k':
 	{
 		//Movement
-		if  ( (abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)
-			&& !InCheck(kingUPos1, kingUPos2, kingLPos1, kingLPos2)
-			)
-		{
-			//KingMove(Coor, intCurrentPos1, intCurrentPos2, intWantedPos1, intWantedPos2);
-			return true;
-		}
-
+		if  ( (abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)) return true;
+			
 		break;
 	}
 
