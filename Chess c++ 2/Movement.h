@@ -601,7 +601,9 @@ bool MoveValid(string MoveInput)
 	case 'k':
 	{
 		//Movement
-		if  ( (abs(intCurrentPos1 - intWantedPos1) == 1 || abs(intCurrentPos2 - intWantedPos2) == 1)) return true;
+		if  ( (abs(intCurrentPos1 - intWantedPos1) == 1 && abs(intCurrentPos2 - intWantedPos2) <= 1)
+			|| ((abs(intCurrentPos2 - intWantedPos2) == 1) && abs(intCurrentPos1 - intWantedPos1) <= 1)
+			) return true;
 			
 		break;
 	}
