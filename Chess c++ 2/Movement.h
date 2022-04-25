@@ -8,7 +8,7 @@ char piece;
 
 char checkPiece;
 
-int kingUPos1 = D, kingUPos2 = x1;
+int kingUPos1 = E, kingUPos2 = x1;
 
 int kingLPos1 = E, kingLPos2 = x8;
 

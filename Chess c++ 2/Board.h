@@ -111,8 +111,8 @@ void SetupPieces()
 	Coor[A][x1] = 'R';
 	Coor[B][x1] = 'N';
 	Coor[C][x1] = 'B';
-	Coor[D][x1] = 'K';
-	Coor[E][x1] = 'Q';
+	Coor[D][x1] = 'Q';
+	Coor[E][x1] = 'K';
 	Coor[F][x1] = 'B';
 	Coor[G][x1] = 'N';
 	Coor[H][x1] = 'R';
